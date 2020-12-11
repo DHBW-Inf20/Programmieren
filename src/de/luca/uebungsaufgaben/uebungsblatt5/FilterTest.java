@@ -1,10 +1,11 @@
-package de.luca.uebungsaufgaben.uebungsblatt6;
+package de.luca.uebungsaufgaben.uebungsblatt5;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Arrays;
 
 public class FilterTest {
+
     public static void main(String[] args) throws IOException {
         Reader r = new FuckFilter(new LineBreakAdder(new RandomWordsReader()));
 

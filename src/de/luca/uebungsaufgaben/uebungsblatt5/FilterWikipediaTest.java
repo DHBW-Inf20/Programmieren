@@ -1,4 +1,4 @@
-package de.luca.uebungsaufgaben.uebungsblatt6;
+package de.luca.uebungsaufgaben.uebungsblatt5;
 
 import java.io.*;
 import java.net.URL;

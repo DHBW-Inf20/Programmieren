@@ -1,4 +1,4 @@
-package de.luca.uebungsaufgaben.uebungsblatt6;
+package de.luca.uebungsaufgaben.uebungsblatt5;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -23,6 +23,7 @@ public class FuckFilter extends Reader {
         int charsRead = in.read(cbuf, off, len);
 
         // same Array instance?
+        // noinspection ArrayEquals (suppresses warning, wanted behavior: explicitly test for same referenced array)
         if (!cbuf.equals(buffer)) {
             buffer = cbuf;
             alreadyFilteredOnce = new boolean[buffer.length];

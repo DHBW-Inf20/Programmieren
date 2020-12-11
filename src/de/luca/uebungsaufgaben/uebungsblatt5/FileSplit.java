@@ -1,4 +1,4 @@
-package de.luca.uebungsaufgaben.uebungsblatt6;
+package de.luca.uebungsaufgaben.uebungsblatt5;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -8,6 +8,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class FileSplit {
+
     public static void main(String[] args) throws IOException {
         String fileName;
         if (args.length == 1) {
@@ -52,7 +53,6 @@ public class FileSplit {
                     outputStream.write(nextByte);
                     writtenBytes++;
                 }
-                // or: Files.copy(file.toPath(), outputStream);
 
                 outputStream.flush();
                 outputStream.close();
@@ -66,7 +66,7 @@ public class FileSplit {
 
         Path directoryPath = directory.toPath();
         File zipFile = new File(directory.getAbsolutePath() + ".zip");
-        ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(zipFile));
+        ZipOutputStream zipOutputStream = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFile)));
         zipOutputStream.setLevel(9);
         Files.walk(directoryPath)
                 .filter(path -> !Files.isDirectory(path))

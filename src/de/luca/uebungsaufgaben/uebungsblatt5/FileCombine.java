@@ -1,4 +1,4 @@
-package de.luca.uebungsaufgaben.uebungsblatt6;
+package de.luca.uebungsaufgaben.uebungsblatt5;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileCombine {
+
     public static void main(String[] args) throws IOException {
         String fileName;
         if (args.length == 1) {
@@ -20,7 +21,6 @@ public class FileCombine {
         File f;
 
         while ((f = new File(fileName + "." + (numberOfSplitFiles + 1))).exists()) {
-            System.out.println(f);
             splitFiles.add(f);
             numberOfSplitFiles++;
         }
