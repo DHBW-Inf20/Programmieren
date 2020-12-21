@@ -4,16 +4,18 @@ public class BubbleSort implements Sorter {
 
     @Override
     public int[] sort(int[] arrayToSort) {
+        if (arrayToSort == null) return null;
         int[] result = arrayToSort.clone();
 
         boolean sortingComplete = false;
         int temp;
+        int limit = result.length - 1;
 
         while (!sortingComplete) {
-            sortingComplete = true; //will be changed when if condition is true
+            sortingComplete = true; // will be changed if condition is true
 
-            for (int i = 0; i < result.length - 1; i++) {
-                if (result[i] < result[i + 1]) {
+            for (int i = 0; i < limit; i++) {
+                if (result[i] > result[i + 1]) {
                     temp = result[i];
                     result[i] = result[i + 1];
                     result[i + 1] = temp;
@@ -21,6 +23,8 @@ public class BubbleSort implements Sorter {
                     sortingComplete = false;
                 }
             }
+
+            limit--; // number of sorted elements increases after each iteration => limit can be decremented
         }
 
         return result;
