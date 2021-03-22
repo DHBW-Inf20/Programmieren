@@ -61,6 +61,7 @@ public class FileSplit {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     static void zipDirectory(File directory) throws IOException {
         if (!directory.isDirectory()) return;
 

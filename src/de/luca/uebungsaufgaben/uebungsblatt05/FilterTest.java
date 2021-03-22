@@ -14,6 +14,7 @@ public class FilterTest {
 
         // read one char at a time
         for (int i = 0; i < chars.length; i++) {
+            //noinspection ResultOfMethodCallIgnored
             r.read(chars, i, 1);
         }
         System.out.println(new String(chars));
@@ -26,6 +27,7 @@ public class FilterTest {
         chars = new char[210];
 
         // read all chars at once
+        //noinspection ResultOfMethodCallIgnored
         r.read(chars);
         System.out.println(new String(chars));
         System.out.println(Arrays.toString(chars));

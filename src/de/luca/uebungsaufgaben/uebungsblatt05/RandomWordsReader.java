@@ -18,6 +18,7 @@ public class RandomWordsReader extends Reader {
 
         for (int i = 0; i < len; i = output.length()) {
             int result = (int) (Math.random() * 10) % 6;
+            //noinspection StringConcatenationInLoop
             output = output + WORDS[result] + " ";
         }
 

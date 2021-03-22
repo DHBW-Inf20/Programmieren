@@ -12,6 +12,7 @@ public class KnackMich {
             int length = guess.length();
             if (length < 9) {
                 for (int j = 0; j < 9 - length; j++) {
+                    //noinspection StringConcatenationInLoop
                     guess = "0" + guess;
                 }
             }

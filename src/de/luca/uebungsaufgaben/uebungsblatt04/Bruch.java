@@ -1,5 +1,6 @@
 package de.luca.uebungsaufgaben.uebungsblatt04;
 
+@SuppressWarnings("unused")
 public class Bruch implements Comparable<Bruch> {
 
     int zaehler;

@@ -80,6 +80,7 @@ public class FileSplitOptimized {
         return maxBytes;
     }
 
+    @SuppressWarnings("DuplicatedCode")
     private static File zipDirectory(File directory) throws IOException {
 
         if (!directory.isDirectory()) return null;

@@ -1,5 +1,6 @@
 package de.luca.uebungsaufgaben.uebungsblatt07;
 
+@SuppressWarnings("unused")
 public class Aufgabe1 {
 
     private static void f(int n) {
@@ -17,6 +18,7 @@ public class Aufgabe1 {
         f(n - 2);
     }
 
+    @SuppressWarnings("CommentedOutCode")
     private static void startInF(int n) {
         if (n <= 0) {
             System.out.println("Abbruch in f, Wert: " + n);
