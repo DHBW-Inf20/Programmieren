@@ -8,6 +8,7 @@ public class RandomWordsReader extends Reader {
 
     private String rest = "";
 
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public int read(char[] cbuf, int off, int len) {
         if (off < 0) throw new IndexOutOfBoundsException("off can't be negative");

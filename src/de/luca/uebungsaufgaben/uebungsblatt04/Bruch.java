@@ -1,6 +1,6 @@
 package de.luca.uebungsaufgaben.uebungsblatt04;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "SpellCheckingInspection"})
 public class Bruch implements Comparable<Bruch> {
 
     int zaehler;

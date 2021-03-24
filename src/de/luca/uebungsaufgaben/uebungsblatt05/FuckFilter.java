@@ -17,6 +17,7 @@ public class FuckFilter extends Reader {
 
     // if cbuf changes or results of read in cbuf are used before calling read again, "fuck" between multiple read calls
     // won't be replaced by "****"
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public int read(char[] cbuf, int off, int len) throws IOException {
 

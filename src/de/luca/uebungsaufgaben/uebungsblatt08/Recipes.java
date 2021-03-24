@@ -12,6 +12,7 @@ class Recipes {
         init();
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     private static void init() {
         recipes.add(Arrays.asList("\"125er\" Waffeln", "Mehl", "Butter", "Zucker", "Milch", "Ei(er)", "Salz"));
         recipes.add(Arrays.asList("\"A bis Z\"-Salat", "Zucchini", "Apfel", "Zwiebel(n)", "Salz", "Zucker", "Schmand", "Salz und Pfeffer", "Dill", "Rosinen", "Kräuter"));

@@ -15,6 +15,7 @@ public class LineBreakAdder extends Reader {
         this.in = in;
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public int read(char[] cbuf, int off, int len) throws IOException {
         int charsRead = in.read(cbuf, off, len);
