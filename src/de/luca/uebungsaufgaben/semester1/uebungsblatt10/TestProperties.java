@@ -12,9 +12,9 @@ public class TestProperties {
 
         Properties testProperties = new Properties();
 
-        testProperties.load(
-                new FileReader("src/de/luca/uebungsaufgaben/uebungsblatt10/test-properties.properties")
-        );
+        testProperties.load(new FileReader(
+                "src/de/luca/uebungsaufgaben/semester1/uebungsblatt10/test-properties.properties"
+        ));
 
         String in = testProperties.getProperty("in");
         String out = testProperties.getProperty("out appended", "");
@@ -22,7 +22,7 @@ public class TestProperties {
         testProperties.setProperty("out appended", out);
 
         testProperties.store(
-                new FileWriter("src/de/luca/uebungsaufgaben/uebungsblatt10/test-properties.properties"),
+                new FileWriter("src/de/luca/uebungsaufgaben/semester1/uebungsblatt10/test-properties.properties"),
                 "Add your comments here!"
         );
     }
