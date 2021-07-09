@@ -14,3 +14,12 @@ add_executable(remove
 
 add_executable(strqueue
         src/c/strqueue/strqueue_main.c src/c/strqueue/strqueue.c src/c/strqueue/reverse.c)
+
+add_executable(strcat
+        src/c/strcat/strcat.c)
+
+add_executable(strin
+        src/c/strin/strin.c)
+
+add_executable(map
+        src/c/map/map.c)
