@@ -23,3 +23,6 @@ add_executable(strin
 
 add_executable(map
         src/c/map/map.c)
+
+add_executable(tree
+        src/c/tree/tree_main.c src/c/tree/tree.c)
