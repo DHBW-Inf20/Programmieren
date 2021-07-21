@@ -49,7 +49,7 @@ void delete(tree *tree) {
 }
 
 
-static tree_node *add_element_helper(tree_node *node, int element) {
+static tree_node *add_element_helper(tree_node *node, const int element) {
     if (node == NULL) {
         node = malloc_node();
         node->content = element;
@@ -65,13 +65,13 @@ static tree_node *add_element_helper(tree_node *node, int element) {
     return node;
 }
 
-void add_element(tree *tree, int element) {
+void add_element(tree *tree, const int element) {
     if (tree == NULL) return;
 
     tree->root = add_element_helper(tree->root, element);
 }
 
-static tree_node *add_tree(tree_node *tree, tree_node *tree_to_add) {
+static tree_node *add_tree(tree_node *tree, const tree_node *tree_to_add) {
     return tree_to_add == NULL
            ? tree
            : add_tree(add_tree(add_element_helper(tree, tree_to_add->content), tree_to_add->right), tree_to_add->left);
@@ -83,14 +83,15 @@ static tree_node *add_tree(tree_node *tree, tree_node *tree_to_add) {
  * @param node_change_ptr pointer to the pointer of parent node that should be changed if node is the one to be deleted
  * @param element element to delete
  */
-static tree_node *delete_element_helper(tree_node *root, tree_node *node, tree_node **node_change_ptr, int element) {
+static tree_node *
+delete_element_helper(tree_node *root, tree_node *node, tree_node **node_change_ptr, const int element) {
     if (node == NULL) return root;
 
     int content = node->content;
     if (element == content) {
         tree_node *left = node->left;
         tree_node *right = node->right;
-        if (node_change_ptr == NULL) {
+        if (node == root) {
             // root is the node to be deleted -> new root is root of combined tree left + right
             root = add_tree(left, right);
         } else {
@@ -120,24 +121,31 @@ void delete_element(tree *tree, int element) {
 }
 
 
-static void print_in_order_helper(tree_node *node) {
-    if (node == NULL) return;
+static int print_in_order_helper(const tree_node *node, const int root, int printed_before) {
+    if (node == NULL) {
+        if (root) printf("{}");
+        return printed_before;
+    }
 
-    print_in_order_helper(node->left);
-    printf("%d, ", node->content);
-    print_in_order_helper(node->right);
+    printed_before = print_in_order_helper(node->left, 0, printed_before);
+    printf(printed_before ? ", %d" : "%d", node->content);
+    print_in_order_helper(node->right, 0, 1);
+    return 1;
 }
 
-void print_in_order(tree *tree) {
+void print_in_order(const tree *tree) {
     if (tree == NULL) return;
 
     printf("Tree in order: ");
-    print_in_order_helper(tree->root);
+    print_in_order_helper(tree->root, 1, 0);
     printf("\n");
 }
 
-static void print_structure_helper(tree_node *node) {
-    if (node == NULL) return;
+static void print_structure_helper(const tree_node *node) {
+    if (node == NULL) {
+        printf("{}");
+        return;
+    }
 
     printf("%d", node->content);
     printf(" -> { children: left: ");
@@ -147,7 +155,7 @@ static void print_structure_helper(tree_node *node) {
     printf(" }");
 }
 
-void print_structure(tree *tree) {
+void print_structure(const tree *tree) {
     if (tree == NULL) return;
 
     printf("Tree structure: root: ");
