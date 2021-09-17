@@ -1,35 +1,36 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "tree.h"
 
 int main() {
     tree *tree = new_tree();
 
-    add_element(tree, 5);
-    add_element(tree, 1);
-    add_element(tree, 3);
-    add_element(tree, 7);
-    add_element(tree, 8);
-    add_element(tree, 9);
-    add_element(tree, 1);
-    add_element(tree, 2);
+    tree_add_element(tree, 5);
+    tree_add_element(tree, 1);
+    tree_add_element(tree, 3);
+    tree_add_element(tree, 7);
+    tree_add_element(tree, 8);
+    tree_add_element(tree, 9);
+    tree_add_element(tree, 1);
+    tree_add_element(tree, 2);
 
-    print_structure(tree);
-    print_in_order(tree);
+    tree_print_structure(tree);
+    tree_print_in_order(tree);
 
     printf("\ndelete 2:\n");
-    delete_element(tree, 2);
-    print_in_order(tree);
+    tree_delete_element(tree, 2);
+    tree_print_in_order(tree);
 
     printf("\ndelete 5:\n");
-    delete_element(tree, 5);
-    print_in_order(tree);
+    tree_delete_element(tree, 5);
+    tree_print_in_order(tree);
 
     printf("\ndelete 2:\n");
-    delete_element(tree, 2);
-    print_in_order(tree);
+    tree_delete_element(tree, 2);
+    tree_print_in_order(tree);
 
-    print_structure(tree);
-    delete(tree);
+    tree_print_structure(tree);
+    tree_free(tree);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
