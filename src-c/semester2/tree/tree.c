@@ -98,6 +98,7 @@ delete_element(struct node *root, struct node *node, struct node **node_change_p
             // change the pointer to left/right child of parent to combined tree left + right
             *node_change_ptr = add_tree(left, right);
         }
+        free(node); // free (but not recursive to keep children)
         node_recursive_free(right); // right tree gets copied by add_tree() -> free
     } else if (element < content) {
         // delete in left sub-tree -> node_change_ptr is pointer to left pointer of node

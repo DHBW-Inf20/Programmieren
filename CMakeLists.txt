@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.16)
 project(Programmieren C)
 
 set(CMAKE_C_STANDARD 99)
@@ -26,3 +26,6 @@ add_executable(map
 
 add_executable(tree
         src-c/semester2/tree/tree_main.c src-c/semester2/tree/tree.c)
+
+add_executable(tree_memcheck
+        src-c/semester2/tree/tree_memcheck.c src-c/semester2/tree/tree.c)
