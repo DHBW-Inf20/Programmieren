@@ -3,7 +3,7 @@
 #include "tree.h"
 
 int main() {
-    tree *tree = new_tree();
+    Tree *const tree = new_tree();
 
     tree_add_element(tree, 5);
     tree_add_element(tree, 1);

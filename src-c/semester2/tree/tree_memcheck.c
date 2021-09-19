@@ -2,13 +2,13 @@
 #include <time.h>
 #include "tree.h"
 
-#define MAX_ELEMENTS 100
-#define RUNS 1000
+static const int MAX_ELEMENTS = 100;
+static const int RUNS = 1000;
 
 int main() {
     int number_elements;
     int elements[MAX_ELEMENTS];
-    tree *tree;
+    Tree *tree;
 
     srand(time(NULL));
 

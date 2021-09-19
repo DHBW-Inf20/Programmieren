@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct node {
-    int content;
-    struct node *left;
-    struct node *right;
+typedef struct Node Node;
+struct Node {
+    const int content;
+    Node *left, *right;
 };
 
-struct tree {
-    struct node *root;
-};
+typedef struct Tree {
+    Node *root;
+} Tree;
 
 
 static void alloc_failure_exit() {
@@ -18,17 +18,18 @@ static void alloc_failure_exit() {
 }
 
 
-static struct node *new_node(const int content) {
-    struct node *node = malloc(sizeof(struct node));
+static Node *new_node(const int content) {
+    Node *const node = malloc(sizeof(Node));
     if (node == NULL) alloc_failure_exit();
 
-    node->content = content;
+    // create pointer to node->content, cast it to pointer to non-const int and dereference to make content mutable
+    *((int *) &(node->content)) = content;
     node->left = node->right = NULL;
 
     return node;
 }
 
-static void node_recursive_free(struct node *node) {
+static void node_recursive_free(Node *const node) {
     if (node == NULL) return;
 
     node_recursive_free(node->left);
@@ -36,14 +37,14 @@ static void node_recursive_free(struct node *node) {
     free(node);
 }
 
-struct tree *new_tree() {
-    struct tree *tree = calloc(1, sizeof(struct tree));
+Tree *new_tree() {
+    Tree *const tree = calloc(1, sizeof(Tree));
     if (tree == NULL) alloc_failure_exit();
 
     return tree;
 }
 
-void tree_free(struct tree *tree) {
+void tree_free(Tree *const tree) {
     if (tree == NULL) return;
 
     node_recursive_free(tree->root);
@@ -51,11 +52,11 @@ void tree_free(struct tree *tree) {
 }
 
 
-static struct node *add_element(struct node *node, const int element) {
+static Node *add_element(Node *node, const int element) {
     if (node == NULL) {
         node = new_node(element);
     } else {
-        int content = node->content;
+        const int content = node->content;
         if (element < content) {
             node->left = add_element(node->left, element);
         } else if (element > content) {
@@ -65,13 +66,13 @@ static struct node *add_element(struct node *node, const int element) {
     return node;
 }
 
-void tree_add_element(struct tree *tree, int element) {
+void tree_add_element(Tree *const tree, const int element) {
     if (tree == NULL) return;
 
     tree->root = add_element(tree->root, element);
 }
 
-static struct node *add_tree(struct node *tree, const struct node *tree_to_add) {
+static Node *add_tree(Node *const tree, const Node *const tree_to_add) {
     return tree_to_add == NULL
            ? tree
            : add_tree(add_tree(add_element(tree, tree_to_add->content), tree_to_add->right), tree_to_add->left);
@@ -83,14 +84,13 @@ static struct node *add_tree(struct node *tree, const struct node *tree_to_add) 
  * @param node_change_ptr pointer to the pointer of parent node that should be changed if node is the one to be deleted
  * @param element element to delete
  */
-static struct node *
-delete_element(struct node *root, struct node *node, struct node **node_change_ptr, const int element) {
+static Node *delete_element(Node *root, Node *const node, Node **const node_change_ptr, const int element) {
     if (node == NULL) return root;
 
-    int content = node->content;
+    const int content = node->content;
     if (element == content) {
-        struct node *left = node->left;
-        struct node *right = node->right;
+        Node *const left = node->left;
+        Node *const right = node->right;
         if (node == root) {
             // root is the node to be deleted -> new root is root of combined tree left + right
             root = add_tree(left, right);
@@ -110,7 +110,7 @@ delete_element(struct node *root, struct node *node, struct node **node_change_p
     return root;
 }
 
-void tree_delete_element(struct tree *tree, int element) {
+void tree_delete_element(Tree *const tree, const int element) {
     if (tree == NULL) return;
 
     tree->root = delete_element(
@@ -122,7 +122,7 @@ void tree_delete_element(struct tree *tree, int element) {
 }
 
 
-static int print_in_order(const struct node *node, const int root, int printed_before) {
+static int print_in_order(const Node *const node, const int root, int printed_before) {
     if (node == NULL) {
         if (root) printf("{}");
         return printed_before;
@@ -134,7 +134,7 @@ static int print_in_order(const struct node *node, const int root, int printed_b
     return 1;
 }
 
-void tree_print_in_order(const struct tree *tree) {
+void tree_print_in_order(const Tree *const tree) {
     if (tree == NULL) return;
 
     printf("Tree in order: ");
@@ -142,7 +142,7 @@ void tree_print_in_order(const struct tree *tree) {
     printf("\n");
 }
 
-static void print_structure(const struct node *node) {
+static void print_structure(const Node *const node) {
     if (node == NULL) {
         printf("{}");
         return;
@@ -156,7 +156,7 @@ static void print_structure(const struct node *node) {
     printf(" }");
 }
 
-void tree_print_structure(const struct tree *tree) {
+void tree_print_structure(const Tree *const tree) {
     if (tree == NULL) return;
 
     printf("Tree structure: root: ");
