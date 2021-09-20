@@ -1,5 +1,7 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdnoreturn.h>
 
 typedef struct Node Node;
 struct Node {
@@ -12,15 +14,18 @@ typedef struct Tree {
 } Tree;
 
 
-static void alloc_failure_exit() {
-    fprintf(stderr, "Failed to allocate memory!");
+static const char ALLOC_FAILURE_MESSAGE[] = "Failed to allocate memory!";
+static const char INTERNAL_FAILURE_MESSAGE[] = "Internal failure!";
+
+static noreturn void failure_exit(const char *const message) {
+    fputs(message, stderr);
     exit(EXIT_FAILURE);
 }
 
 
 static Node *new_node(const int content) {
     Node *const node = malloc(sizeof(Node));
-    if (node == NULL) alloc_failure_exit();
+    if (node == NULL) failure_exit(ALLOC_FAILURE_MESSAGE);
 
     // create pointer to node->content, cast it to pointer to non-const int and dereference to make content mutable
     *((int *) &(node->content)) = content;
@@ -39,7 +44,7 @@ static void node_recursive_free(Node *const node) {
 
 Tree *new_tree() {
     Tree *const tree = calloc(1, sizeof(Tree));
-    if (tree == NULL) alloc_failure_exit();
+    if (tree == NULL) failure_exit(ALLOC_FAILURE_MESSAGE);
 
     return tree;
 }
@@ -122,44 +127,49 @@ void tree_delete_element(Tree *const tree, const int element) {
 }
 
 
-static int print_in_order(const Node *const node, const int root, int printed_before) {
+bool tree_is_empty(const Tree *const tree) {
+    return tree == NULL || tree->root == NULL;
+}
+
+
+static bool print_in_order(const Node *const node, const bool is_root, bool printed_before) {
     if (node == NULL) {
-        if (root) printf("{}");
+        if (is_root) fputs("-", stdout);
         return printed_before;
     }
 
-    printed_before = print_in_order(node->left, 0, printed_before);
+    printed_before = print_in_order(node->left, false, printed_before);
     printf(printed_before ? ", %d" : "%d", node->content);
-    print_in_order(node->right, 0, 1);
-    return 1;
+    print_in_order(node->right, false, true);
+    return true;
 }
 
 void tree_print_in_order(const Tree *const tree) {
     if (tree == NULL) return;
 
-    printf("Tree in order: ");
-    print_in_order(tree->root, 1, 0);
-    printf("\n");
+    fputs("Tree in order: ", stdout);
+    print_in_order(tree->root, true, false);
+    puts("");
 }
 
 static void print_structure(const Node *const node) {
     if (node == NULL) {
-        printf("{}");
+        fputs("x", stdout);
         return;
     }
 
     printf("%d", node->content);
-    printf(" -> { children: left: ");
+    fputs(" -> { children: left: ", stdout);
     print_structure(node->left);
-    printf(", right: ");
+    fputs(", right: ", stdout);
     print_structure(node->right);
-    printf(" }");
+    fputs(" }", stdout);
 }
 
 void tree_print_structure(const Tree *const tree) {
     if (tree == NULL) return;
 
-    printf("Tree structure: root: ");
+    fputs("Tree structure: root: ", stdout);
     print_structure(tree->root);
-    printf("\n");
+    puts("");
 }
