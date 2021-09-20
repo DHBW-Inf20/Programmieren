@@ -1,16 +1,27 @@
 #include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-char *map(char *string, char (*mapper)(char)) {
-    char *result = string;
+typedef char (*CharUnaryOperator)(char);
+
+static void map(char *restrict string, const CharUnaryOperator mapper) {
     char current;
     while ((current = *string) != 0) *string++ = mapper(current);
-    return result;
 }
 
 int main() {
-    char string[20];
-    scanf("%19s", string);
-    printf("%s\n", map(string, (char (*)(char)) toupper));
-    return 0;
+    char input[100];
+    fputs("Input:  ", stdout);
+    if (fgets(input, sizeof input, stdin)) {
+        input[strcspn(input, "\n")] = 0; // remove \n
+
+        map(input, (CharUnaryOperator) toupper);
+
+        printf("Output: %s\n", input);
+        return EXIT_SUCCESS;
+    } else {
+        fputs("Unable to read input!\n", stderr);
+        return EXIT_FAILURE;
+    }
 }
