@@ -5,7 +5,7 @@
 int main() {
     puts("initialize tree...");
 
-    Tree *const tree = new_tree();
+    register Tree *restrict const tree = new_tree();
 
     fputs("Is tree empty? - ", stdout);
     puts(tree_is_empty(tree) ? "yes" : "no");

@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.21)
 project(Programmieren C)
 
-set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD 23)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_FLAGS "-O3 -Wall -Wextra -Wpedantic -pedantic-errors") # optimizations (e.g. for recursive calls) and more warnings
 
 add_executable(helloworld
         src-c/semester2/helloworld/helloworld.c)
